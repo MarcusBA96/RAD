@@ -39,6 +39,7 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="CreateStream.cs" />
         <Compile Include="MuliplyModPrimeHash.cs" />
         <Compile Include="multiplyShiftHash.cs" />
         <Compile Include="Program.cs" />

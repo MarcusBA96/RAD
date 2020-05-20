@@ -10,11 +10,17 @@ namespace RAD_Project {
         private static int q = 89;
         private BigInteger p = BigInteger.Pow(2, MultiplyModPrimeHash.q);
         private int l;
-        private UInt64 key;
-        public MultiplyModPrimeHash(int l, UInt64 x) {
-            this.key = x;
+        public MultiplyModPrimeHash(int l) {
             this.l = l;
         }
-        public 
+
+        public BigInteger HashValue(BigInteger x) {
+            BigInteger x1 = (a * x + b);
+            BigInteger y = (x1 & p) + (x1 >> MultiplyModPrimeHash.q);
+            if (y > p) {
+                y -= p;
+            }
+            return y % (BigInteger.Pow(2, l));
+        }
     }
 }
