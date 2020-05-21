@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-<<<<<<< HEAD
     <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
     <PropertyGroup>
         <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -40,6 +39,7 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="hashTable.cs" />
         <Compile Include="CreateStream.cs" />
         <Compile Include="MuliplyModPrimeHash.cs" />
         <Compile Include="multiplyShiftHash.cs" />
@@ -101,7 +101,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!- To modify your build process, add your task inside one of the targets below and uncomment it. 
 >>>>>>> 5f519a56eea357b4183447e9b40564c7cc266eb9
          Other similar extension points exist, see Microsoft.Common.targets.
     <Target Name="BeforeBuild">
