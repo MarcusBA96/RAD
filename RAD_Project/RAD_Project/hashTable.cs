@@ -1,33 +1,75 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Xml.Schema;
 
 
 //Code will not run, but trying to make a general skeleton for a hash table. 
 namespace RAD_Project {
-    public class HashTable<TKey, TVal> {
-        private LinkedList<Tuple<TKey, TVal>>[] items;
+    public struct KeyVal<K, V> {
+        public K Key { get; set; }
+        public V Val { get; set; }
+    }
+    public class HashTable {
+        private LinkedList<KeyVal<UInt64, int>>[] items;
         private readonly int size;
-        private readonly int l;
-        private object hasher = new MultiplyShiftHash();
+        private MultiplyShiftHash hash;
         public HashTable(int l) {
-            l = l;
             size = (int) Math.Pow(2, l);
-            items = new LinkedList<Tuple<TKey, TVal>>[size];
+            hash = new MultiplyShiftHash(l);
+            items = new LinkedList<KeyVal<UInt64, int >>[size];
+        }
+        public int Get(UInt64 key) {
+            UInt64 index = hash.HashValue(key);
+            if (items[index].Count == 0) {
+                return 0;
+            }
+            foreach (KeyVal<UInt64, int> x in items[index]){
+                if (x.Key == key) {
+                    return x.Val;
+                }
+            }
+            
+            return 0;
+
         }
 
-        
-        public void Get(TKey) {
-            int index = hasher.HashValue(TKey) % size;
-            if (items[index] == 0) {
-                return 0;
-            } else {
-                return items[index];
+        public void Set(UInt64 key, int val) {
+            UInt64 index = hash.HashValue(key);
+            bool found = false;
+            KeyVal<UInt64, int> newNode = new KeyVal<ulong, int> {Key = key, Val = val};
+            for (LinkedListNode<KeyVal<ulong, int>> node = items[index].First;
+                node != null;
+                node = node.Next) {
+                if (node.Value.Key.Equals(key)) {
+                    items[index].AddBefore(node, newNode);
+                    items[index].Remove(node);
+                    found = true;
+                }
+            }
+
+            if (!found) {
+                items[index].AddLast(newNode);
             }
         }
+        public void Increment(UInt64 key, int d) {
+            UInt64 index = hash.HashValue(key);
+            bool found = false;
+            KeyVal<UInt64, int> newNode = new KeyVal<ulong, int> {Key = key, Val = d};
+            for (LinkedListNode<KeyVal<ulong, int>> node = items[index].First;
+                node != null;
+                node = node.Next) {
+                if (node.Value.Key.Equals(key)) {
+                    newNode.Val += node.Value.Val;
+                    items[index].AddBefore(node, newNode);
+                    items[index].Remove(node);
+                    found = true;
+                }
+            }
 
-        public void set(TKey, TVal) {
-            
+            if (!found) {
+                items[index].AddLast(newNode);
+            }
         }
     }
 }
