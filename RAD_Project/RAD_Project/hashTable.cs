@@ -11,8 +11,8 @@ namespace RAD_Project {
         public V Val { get; set; }
     }
     public class HashTable {
-        private LinkedList<KeyVal<UInt64, int>>[] items;
-        private readonly int size;
+        public LinkedList<KeyVal<UInt64, int>>[] items;
+        private int size;
         private MultiplyShiftHash hash;
         public HashTable(int l) {
             size = (int) Math.Pow(2, l);
@@ -21,7 +21,7 @@ namespace RAD_Project {
         }
         public int Get(UInt64 key) {
             UInt64 index = hash.HashValue(key);
-            if (items[index].Count == 0) {
+            if (items[index] == null) {
                 return 0;
             }
             foreach (KeyVal<UInt64, int> x in items[index]){
@@ -38,6 +38,11 @@ namespace RAD_Project {
             UInt64 index = hash.HashValue(key);
             bool found = false;
             KeyVal<UInt64, int> newNode = new KeyVal<ulong, int> {Key = key, Val = val};
+            if (items[index] == null) {
+                items[index] = new LinkedList<KeyVal<UInt64, int>>();
+                items[index].AddFirst(newNode);
+                return;
+            }
             for (LinkedListNode<KeyVal<ulong, int>> node = items[index].First;
                 node != null;
                 node = node.Next) {
@@ -56,6 +61,11 @@ namespace RAD_Project {
             UInt64 index = hash.HashValue(key);
             bool found = false;
             KeyVal<UInt64, int> newNode = new KeyVal<ulong, int> {Key = key, Val = d};
+            if (items[index] == null) {
+                items[index] = new LinkedList<KeyVal<UInt64, int>>();
+                items[index].AddFirst(newNode);
+                return;
+            }
             for (LinkedListNode<KeyVal<ulong, int>> node = items[index].First;
                 node != null;
                 node = node.Next) {
