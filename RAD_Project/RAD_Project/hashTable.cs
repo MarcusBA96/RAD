@@ -29,7 +29,7 @@ namespace RAD_Project {
                     return x.Val;
                 }
             }
-            
+
             return 0;
 
         }
