@@ -42,6 +42,19 @@ namespace RAD_Project {
             stopwatch.Stop();
             Console.WriteLine("Squaresum: {0} found in {1}",squareSum, stopwatch.Elapsed);
 
+            UInt64 m = (UInt64) BigInteger.Pow(2, 24);
+            
+            CountSketch countSketch = new CountSketch(m);
+            
+            
+            CountSketchHash CH = new CountSketchHash(m);
+
+            CH.S(24);
+
+
+
+
+
             /*int streamSum = 0;
             foreach ((ulong item1, int item2) in stream) {
                 keyArray[item1] = item1;

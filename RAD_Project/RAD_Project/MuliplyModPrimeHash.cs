@@ -7,6 +7,7 @@ namespace RAD_Project {
             BigInteger.Parse("01010001011000100100000100110000000100000010111000000001101011111001001110100111001101011");
         private BigInteger b =
             BigInteger.Parse("01011000011010111100110111000001100001000001000101011000001110111101111000101000110000001");
+
         private static int q = 89;
         private BigInteger p = BigInteger.Pow(2, MultiplyModPrimeHash.q);
         private int l;
