@@ -18,7 +18,7 @@ namespace RAD_Project {
         }
         
         public int CalculateSum() {
-            this.PopulateTable();
+            PopulateTable();
             int sum = 0;
             foreach ((ulong item1, int item2) in keyStream) {
                 int value = hTable.Get(item1);

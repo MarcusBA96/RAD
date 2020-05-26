@@ -3,19 +3,19 @@ using System.Numerics;
 
 namespace RAD_Project {
     public class FourUniHash {
-        private BigInteger a_0 =
+        private BigInteger a0 =
             BigInteger.Parse(
-                "01010001011000100100000100110000000100000010111000000001101011111001001110100111001101011");
+                "01010001011000100100000100110000000100000010111000000001101011111001001110100111001100011");
 
-        private BigInteger a_1 =
+        private BigInteger a1 =
             BigInteger.Parse(
-                "11001110111010000010001011101000111010100110000010010000111001101000000101011111011111111");
+                "11001110111010000010001011101000111010100110000010010000111001101000000101011111011111011");
 
-        private BigInteger a_2 =
+        private BigInteger a2 =
             BigInteger.Parse(
-                "00100100001001101011000101100111100011110011110100100011010111001010101101000111111001101");
+                "00100100001001101011000101100111100011110011110100100011010111001010101101000111111000101");
 
-        private BigInteger a_3 =
+        private BigInteger a3 =
             BigInteger.Parse(
                 "01011000011010111100110111000001100001000001000101011000001110111101111000101000110000001");
         private static int q = 89;
@@ -23,13 +23,15 @@ namespace RAD_Project {
 
         public BigInteger HashValue(BigInteger x) {
             BigInteger x1 = 
-                a_0 + a_1 * (x) + a_2 * BigInteger.Pow(x,2) + a_3 * BigInteger.Pow(x,3);
+                a0 + a1 * x + a2 * BigInteger.Pow(x,2) + a3 * BigInteger.Pow(x,3);
+            //g(x) = x1 mod p
             BigInteger y = (x1 & p) + (x1 >> FourUniHash.q);
             if (y >= p) {
                 y -= p;
             }
-
-            return y;
+            
+            BigInteger g = (y & 3);
+            return g;
         }
     }
 }

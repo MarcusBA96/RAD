@@ -1,4 +1,5 @@
 using System;
+using System.Net.Security;
 using System.Numerics;
 
 namespace RAD_Project {
@@ -18,8 +19,11 @@ namespace RAD_Project {
         public BigInteger S(BigInteger x) {
             BigInteger g = hasher.HashValue(x);
             BigInteger bx = (g >> (CountSketchHash.b - 1));
-            Console.WriteLine("Four Uni Hash: {0}, B(x): {1}", g, bx);
-            return 1 - 2 * bx;
+            BigInteger s = 1 - 2 * bx;
+            if (s == 0) {
+                Console.WriteLine("Wrong number: {0}", s);
+            }
+            return s;
         }
     }
 }

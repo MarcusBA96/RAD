@@ -14,7 +14,6 @@ namespace RAD_Project {
         }
 
         public void Ci_Calculation(UInt64 x, int d) {
-            Console.WriteLine(hasher.S(x));
             UInt64 h_x = (UInt64)hasher.H(x);
             C[h_x] += hasher.S(x) * d;
         }

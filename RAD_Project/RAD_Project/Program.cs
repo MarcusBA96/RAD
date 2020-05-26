@@ -8,14 +8,14 @@ namespace RAD_Project {
     internal class Program {
         public static void Main(string[] args) {
             int n = 100000;
-            int l = 20;
+            int l = 10;
             IEnumerable <Tuple <ulong , int >> stream = CreateStream1.CreateStream(n,l);
             MultiplyShiftHash shiftHash = new MultiplyShiftHash(49);
             MultiplyModPrimeHash modPrimeHash = new MultiplyModPrimeHash(34);
             Stopwatch stopwatch = new Stopwatch();
             HashTable table = new HashTable(l);
             ulong[] keyArray = new ulong[(int) Math.Pow(2,l)];
-
+            
             // Assignment 1.c
             stopwatch.Start();
             ulong shiftSum = 0;
@@ -46,11 +46,13 @@ namespace RAD_Project {
             
             CountSketch countSketch = new CountSketch(m);
             
-            
-            CountSketchHash CH = new CountSketchHash(m);
-
-            CH.S(24);
-
+            stopwatch.Reset();
+            stopwatch.Start();
+            foreach ((ulong item1, int item2) in stream) {
+                countSketch.Ci_Calculation(item1, item2);
+            }
+            stopwatch.Stop();
+            Console.WriteLine("Approximation: {0}, time elapsed: {1}", countSketch.Approximation(), stopwatch.Elapsed);
 
 
 
