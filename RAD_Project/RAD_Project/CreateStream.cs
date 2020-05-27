@@ -5,7 +5,7 @@ namespace RAD_Project {
     public class CreateStream1 {
         public  static  IEnumerable <Tuple <ulong , int >> CreateStream(int n, int l) {
             // We  generate a random  uint64  number.
-            Random  rnd = new  System.Random ();
+            Random  rnd = new  Random ();
             ulong a = 0UL;
             Byte[] b = new  Byte [8];
             rnd.NextBytes(b);

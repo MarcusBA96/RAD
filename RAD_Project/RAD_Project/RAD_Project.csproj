@@ -49,6 +49,7 @@
     <Compile Include="multiplyShiftHash.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RandomBits.cs" />
     <Compile Include="SquareSum.cs" />
   </ItemGroup>
   <ItemGroup>

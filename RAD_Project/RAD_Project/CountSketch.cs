@@ -10,8 +10,9 @@ namespace RAD_Project {
         public CountSketch(BigInteger _init_m) {
             m = _init_m;
             hasher = new CountSketchHash(m);
-            UInt64 m_int = (UInt64) _init_m;
+            ulong m_int = (ulong) _init_m;
             C = new BigInteger[m_int];
+            Console.WriteLine(C.Length);
         }
 
         public void Ci_Calculation(UInt64 x, int d) {

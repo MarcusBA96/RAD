@@ -7,19 +7,18 @@ using System.Numerics;
 namespace RAD_Project {
     internal class Program {
         public static void Main(string[] args) {
-            int n = 100000;
-            int l = 10;
+            int n = 10000;
+            int l = 34;
             IEnumerable <Tuple <ulong , int >> stream = CreateStream1.CreateStream(n,l);
-            MultiplyShiftHash shiftHash = new MultiplyShiftHash(49);
-            MultiplyModPrimeHash modPrimeHash = new MultiplyModPrimeHash(34);
+            MultiplyShiftHash shiftHash = new MultiplyShiftHash(l);
+            MultiplyModPrimeHash modPrimeHash = new MultiplyModPrimeHash(l);
             Stopwatch stopwatch = new Stopwatch();
-            HashTable table = new HashTable(l);
-            ulong[] keyArray = new ulong[(int) Math.Pow(2,l)];
-            
+            //HashTable table = new HashTable(l);
+
             // Assignment 1.c
             stopwatch.Start();
             ulong shiftSum = 0;
-            foreach ((ulong item1, int item2) in stream) {
+            foreach ((ulong item1, _) in stream) {
                 shiftSum += shiftHash.HashValue(item1);
             }
             stopwatch.Stop();
@@ -29,21 +28,25 @@ namespace RAD_Project {
             stopwatch.Reset();
             BigInteger modPrimeSum = 0;
             stopwatch.Start();
-            foreach ((ulong item1, int item2) in stream) {
+            foreach ((ulong item1, _) in stream) {
                 modPrimeSum += modPrimeHash.HashValue(item1);
             }
             stopwatch.Stop();
             Console.WriteLine("Sum: {0} found in {1}", modPrimeSum, stopwatch.Elapsed);
-            
-            stopwatch.Reset();
+
+            BigInteger[] array = RandomBits.RandomArray(4);
+            for (int i = 0; i <= 3; i++) {
+                Console.WriteLine(array[i].ToBinaryString());
+            }
+
+            /*stopwatch.Reset();
             SquareSum sumCalculator = new SquareSum(table,stream);
             stopwatch.Start();
             int squareSum = sumCalculator.CalculateSum();
             stopwatch.Stop();
             Console.WriteLine("Squaresum: {0} found in {1}",squareSum, stopwatch.Elapsed);
 
-            BigInteger m = BigInteger.Pow(2, 46);
-
+            BigInteger m = BigInteger.Pow(2, 28);
             CountSketch countSketch = new CountSketch(m);
             
             stopwatch.Reset();
@@ -52,7 +55,9 @@ namespace RAD_Project {
                 countSketch.Ci_Calculation(item1, item2);
             }
             stopwatch.Stop();
-            Console.WriteLine("Approximation: {0}, time elapsed: {1}", countSketch.Approximation(), stopwatch.Elapsed);
+            Console.WriteLine("Count-Sketch time elapsed: {0}", stopwatch.Elapsed);
+            
+            Console.WriteLine("Approximation: {0}", countSketch.Approximation());*/
 
 
 

@@ -20,6 +20,13 @@ namespace RAD_Project {
         public int CalculateSum() {
             PopulateTable();
             int sum = 0;
+            foreach (LinkedList<KeyVal<ulong,int>> x in hTable.items) {
+                if (x != null) {
+                    foreach (KeyVal<ulong, int> x1 in x) {
+                        Console.WriteLine("Key: {0}, Val: {1}",x1.Key, x1.Val);
+                    }
+                }
+            }
             foreach ((ulong item1, int item2) in keyStream) {
                 int value = hTable.Get(item1);
                 sum += value * value;
