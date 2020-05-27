@@ -3,19 +3,20 @@ using System.Numerics;
 
 namespace RAD_Project {
     public class CountSketch {
-        private UInt64 m;
+        private BigInteger m;
         private CountSketchHash hasher;
         private BigInteger[] C;
 
-        public CountSketch(UInt64 _init_m) {
+        public CountSketch(BigInteger _init_m) {
             m = _init_m;
             hasher = new CountSketchHash(m);
-            C = new BigInteger[m];
+            UInt64 m_int = (UInt64) _init_m;
+            C = new BigInteger[m_int];
         }
 
         public void Ci_Calculation(UInt64 x, int d) {
-            UInt64 h_x = (UInt64)hasher.H(x);
-            C[h_x] += hasher.S(x) * d;
+            BigInteger h_x = hasher.H(x);
+            C[(UInt64) h_x] += hasher.S(x) * d;
         }
 
         public BigInteger Approximation() {

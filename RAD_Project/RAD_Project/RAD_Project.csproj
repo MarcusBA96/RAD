@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BigIntegerExtensions.cs" />
     <Compile Include="CountSketch.cs" />
     <Compile Include="CountSketchHash.cs" />
     <Compile Include="FourUniHash.cs" />

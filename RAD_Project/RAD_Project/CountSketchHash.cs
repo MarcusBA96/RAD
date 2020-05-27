@@ -4,15 +4,16 @@ using System.Numerics;
 
 namespace RAD_Project {
     public class CountSketchHash {
-        private UInt64 m;
+        private BigInteger m;
         private FourUniHash hasher = new FourUniHash();
         private static int b = 89;
 
-        public CountSketchHash(UInt64 _init_m) {
+        public CountSketchHash(BigInteger _init_m) {
             m = _init_m;
         }
         public BigInteger H(BigInteger x) {
              BigInteger g = hasher.HashValue(x);
+             //Console.WriteLine(g.ToBinaryString());
              return g & (m-1);
         }
 

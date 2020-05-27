@@ -42,8 +42,8 @@ namespace RAD_Project {
             stopwatch.Stop();
             Console.WriteLine("Squaresum: {0} found in {1}",squareSum, stopwatch.Elapsed);
 
-            UInt64 m = (UInt64) BigInteger.Pow(2, 24);
-            
+            BigInteger m = BigInteger.Pow(2, 46);
+
             CountSketch countSketch = new CountSketch(m);
             
             stopwatch.Reset();
