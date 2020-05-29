@@ -55,8 +55,7 @@ namespace RAD_Project {
                 bytes[bytes.Length - 1] &= zeroBitsMask;
 
                 value = new BigInteger(bytes);
-
-                // `value > max` 50% of the times, in which case the fastest way to keep the distribution uniform is to try again
+                
             } while (value > max);
 
             return value;

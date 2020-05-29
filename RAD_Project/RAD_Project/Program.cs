@@ -34,11 +34,6 @@ namespace RAD_Project {
             stopwatch.Stop();
             Console.WriteLine("Sum: {0} found in {1}", modPrimeSum, stopwatch.Elapsed);
 
-            BigInteger[] array = RandomBits.RandomArray(4);
-            for (int i = 0; i <= 3; i++) {
-                Console.WriteLine(array[i].ToBinaryString());
-            }
-
             /*stopwatch.Reset();
             SquareSum sumCalculator = new SquareSum(table,stream);
             stopwatch.Start();
