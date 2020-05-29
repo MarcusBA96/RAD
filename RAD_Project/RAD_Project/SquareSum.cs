@@ -27,7 +27,7 @@ namespace RAD_Project {
                     }
                 }
             }
-            foreach ((ulong item1, int item2) in keyStream) {
+            foreach ((ulong item1, _) in keyStream) {
                 int value = hTable.Get(item1);
                 sum += value * value;
             }
