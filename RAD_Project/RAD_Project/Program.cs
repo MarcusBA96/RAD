@@ -8,12 +8,12 @@ namespace RAD_Project {
     internal class Program {
         public static void Main(string[] args) {
             int n = 10000;
-            int l = 34;
-            IEnumerable <Tuple <ulong , int >> stream = CreateStream1.CreateStream(n,l);
+            int l = 30;
+            IEnumerable<Tuple<ulong, int>> stream = CreateStream1.CreateStream(n, l);
             MultiplyShiftHash shiftHash = new MultiplyShiftHash(l);
             MultiplyModPrimeHash modPrimeHash = new MultiplyModPrimeHash(l);
             Stopwatch stopwatch = new Stopwatch();
-            //HashTable table = new HashTable(l);
+            HashTable table = new HashTable(l);
 
             // Assignment 1.c
             stopwatch.Start();
@@ -21,9 +21,10 @@ namespace RAD_Project {
             foreach ((ulong item1, _) in stream) {
                 shiftSum += shiftHash.HashValue(item1);
             }
+
             stopwatch.Stop();
             Console.WriteLine("Sum: {0} found in {1}", shiftSum, stopwatch.Elapsed);
-            
+
 
             stopwatch.Reset();
             BigInteger modPrimeSum = 0;
@@ -31,18 +32,32 @@ namespace RAD_Project {
             foreach ((ulong item1, _) in stream) {
                 modPrimeSum += modPrimeHash.HashValue(item1);
             }
-            stopwatch.Stop();
-            Console.WriteLine("Sum: {0} found in {1}", modPrimeSum, stopwatch.Elapsed);
 
-            BigInteger pikk = 88888;
-
-            /*stopwatch.Reset();
-            SquareSum sumCalculator = new SquareSum(table,stream);
-            stopwatch.Start();
-            int squareSum = sumCalculator.CalculateSum();
             stopwatch.Stop();
+            Console.WriteLine("Sum: {0} found in {1}", modPrimeSum, stopwatch.Elapsed);stopwatch.Reset();                                                            
+            SquareSum sumCalculator = new SquareSum(table,stream);                        
+            stopwatch.Start();                                                            
+            int squareSum = sumCalculator.CalculateSum();                                 
+            stopwatch.Stop();                                                             
             Console.WriteLine("Squaresum: {0} found in {1}",squareSum, stopwatch.Elapsed);
+            BigInteger m = BigInteger.Pow(2, 28);
 
+
+            BigInteger[] estimateArray = new BigInteger[5];
+            for (int i = 0; i < estimateArray.Length; i++) {
+                CountSketch countSketch = new CountSketch(m);
+                foreach ((ulong item1, int item2) in stream) {
+                    countSketch.Ci_Calculation(item1, item2);
+                }
+
+                Console.WriteLine(countSketch.Approximation());
+            }
+            
+            
+            
+            
+            
+            /*
             BigInteger m = BigInteger.Pow(2, 28);
             CountSketch countSketch = new CountSketch(m);
             
@@ -59,35 +74,36 @@ namespace RAD_Project {
 
 
 
-            /*int streamSum = 0;
-            foreach ((ulong item1, int item2) in stream) {
-                keyArray[item1] = item1;
-                streamSum += item2;
-                table.Increment(item1, item2);
-            }
-
-            int getSum = 0;
-            foreach (ulong x in keyArray) {
-                getSum += table.Get(x);
-            }
-            Console.WriteLine(streamSum);
-            Console.WriteLine(getSum);
-
-            int counter = 0;
-            int falseCounter = 0;
-            foreach ((ulong item1, int item2) in stream) {
-                if (table.Get(item1) == item2) {
-                    counter++;
-                } else {
-                    falseCounter++;
+                /*int streamSum = 0;
+                foreach ((ulong item1, int item2) in stream) {
+                    keyArray[item1] = item1;
+                    streamSum += item2;
+                    table.Increment(item1, item2);
                 }
-            }
-            //Console.WriteLine(counter);
-            //Console.WriteLine(falseCounter);
+    
+                int getSum = 0;
+                foreach (ulong x in keyArray) {
+                    getSum += table.Get(x);
+                }
+                Console.WriteLine(streamSum);
+                Console.WriteLine(getSum);
+    
+                int counter = 0;
+                int falseCounter = 0;
+                foreach ((ulong item1, int item2) in stream) {
+                    if (table.Get(item1) == item2) {
+                        counter++;
+                    } else {
+                        falseCounter++;
+                    }
+                }
+                //Console.WriteLine(counter);
+                //Console.WriteLine(falseCounter);
+                
+                table.Set(34, 25);
+                table.Increment(34, 25);
+                //Console.WriteLine(table.Get(34));*/
             
-            table.Set(34, 25);
-            table.Increment(34, 25);
-            //Console.WriteLine(table.Get(34));*/
         }
     }
 }

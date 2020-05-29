@@ -5,7 +5,7 @@ using System.Numerics;
 namespace RAD_Project {
     public class CountSketchHash {
         private BigInteger m;
-        private FourUniHash hasher = new FourUniHash();
+        public FourUniHash hasher = new FourUniHash();
         private static int b = 89;
 
         public CountSketchHash(BigInteger _init_m) {
