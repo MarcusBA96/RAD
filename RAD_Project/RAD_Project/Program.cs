@@ -34,6 +34,8 @@ namespace RAD_Project {
             stopwatch.Stop();
             Console.WriteLine("Sum: {0} found in {1}", modPrimeSum, stopwatch.Elapsed);
 
+            BigInteger pikk = 88888;
+
             /*stopwatch.Reset();
             SquareSum sumCalculator = new SquareSum(table,stream);
             stopwatch.Start();
