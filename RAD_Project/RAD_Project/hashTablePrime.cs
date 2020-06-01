@@ -7,21 +7,18 @@ using System.Xml.Schema;
 
 
 namespace RAD_Project {
-    public struct KeyVal<K, V> {
-        public K Key { get; set; }
-        public V Val { get; set; }
-    }
-    public class HashTable {
+    
+    public class HashTablePrime {
         public LinkedList<KeyVal<UInt64, int>>[] items;
         private int size;
-        private MultiplyShiftHash hash;
-        public HashTable(int l) {
+        private MultiplyModPrimeHash hash;
+        public HashTablePrime(int l) {
             size = (int) Math.Pow(2, l);
-            hash = new MultiplyShiftHash(l);
+            hash = new MultiplyModPrimeHash(l);
             items = new LinkedList<KeyVal<UInt64, int >>[size];
         }
         public int Get(UInt64 key) {
-            UInt64 index = hash.HashValue(key);
+            UInt64 index = (ulong)hash.HashValue(key);
             if (items[index] == null) {
                 return 0;
             }
@@ -36,7 +33,7 @@ namespace RAD_Project {
         }
 
         public void Set(UInt64 key, int val) {
-            UInt64 index = hash.HashValue(key);
+            UInt64 index = (ulong)hash.HashValue(key);
             bool found = false;
             KeyVal<UInt64, int> newNode = new KeyVal<ulong, int> {Key = key, Val = val};
             if (items[index] == null) {
@@ -59,7 +56,7 @@ namespace RAD_Project {
             }
         }
         public void Increment(UInt64 key, int d) {
-            UInt64 index = hash.HashValue(key);
+            UInt64 index = (ulong)hash.HashValue(key);
             bool found = false;
             KeyVal<UInt64, int> newNode = new KeyVal<ulong, int> {Key = key, Val = d};
             if (items[index] == null) {

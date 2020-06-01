@@ -45,12 +45,14 @@
     <Compile Include="FourUniHash.cs" />
     <Compile Include="hashTable.cs" />
     <Compile Include="CreateStream.cs" />
+    <Compile Include="hashTablePrime.cs" />
     <Compile Include="MuliplyModPrimeHash.cs" />
     <Compile Include="multiplyShiftHash.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RandomBits.cs" />
     <Compile Include="SquareSum.cs" />
+    <Compile Include="SquareSumPrime.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

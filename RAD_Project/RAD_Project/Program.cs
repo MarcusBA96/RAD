@@ -18,6 +18,7 @@ namespace RAD_Project {
             FourUniHash fourUniHash = new FourUniHash();
             Stopwatch stopwatch = new Stopwatch();
             HashTable table = new HashTable(l);
+            
 
             // Assignment 1.c
             stopwatch.Start();
@@ -27,9 +28,9 @@ namespace RAD_Project {
             } 
             stopwatch.Stop();
             Console.WriteLine("Sum: {0} found in {1}", shiftSum, stopwatch.Elapsed);
-
-
             stopwatch.Reset();
+            
+            
             BigInteger modPrimeSum = 0;
             stopwatch.Start();
             foreach ((ulong item1, _) in stream) {
@@ -54,11 +55,53 @@ namespace RAD_Project {
             int squareSum = sumCalculator.CalculateSum();                                 
             stopwatch.Stop();                                                             
             Console.WriteLine("Squaresum: {0} found in {1}",squareSum, stopwatch.Elapsed);
-            BigInteger m = BigInteger.Pow(2, 4);
             stopwatch.Reset();
-
+            
+            //Oppgave 3
+            var csvSum = new StringBuilder();
+            var newLine = "l,sumShift, timeShift, sumPrime, timePrime";
+            csvSum.AppendLine(newLine);
+            for (int i = 2; i < 30; i += 2) {
+                IEnumerable<Tuple<ulong, int>> streaming = CreateStream1.CreateStream(n, i);
+                HashTable tableShift = new HashTable(i);
+                HashTablePrime tablePrime = new HashTablePrime(i);
+                SquareSum sumShift = new SquareSum(tableShift, streaming);
+                SquareSumPrime sumPrime = new SquareSumPrime(tablePrime, streaming);
+                stopwatch.Start();
+                int squareSumShift = sumShift.CalculateSum();
+                stopwatch.Stop();
+                var squareSumTime = stopwatch.Elapsed;
+                stopwatch.Reset();
+                stopwatch.Start();
+                int squareSumPrime = sumShift.CalculateSum();
+                stopwatch.Stop();
+                var squareSumPTime = stopwatch.Elapsed;
+                stopwatch.Reset();
+                
+                var theL = i.ToString();
+                var sumShiftVal = squareSumShift.ToString();
+                var sumShiftTime = squareSumTime.ToString();
+                var sumPrimeVal = squareSumPrime.ToString();
+                var sumPrimeTime = squareSumPTime.ToString();
+                var line = string.Format("{0},{1},{2},{3},{4}", theL, sumShiftVal, sumShiftTime,
+                    sumPrimeVal, sumPrimeTime);
+                csvSum.AppendLine(line);
+            }
+            File.WriteAllText("SquareSumTime.csv", csvSum.ToString());
+            //m = 16
+            BigInteger m = BigInteger.Pow(2, 4);
+            CountSketch countSketch16 = new CountSketch(m);
+            foreach ((ulong item1, int item2) in stream) {
+                countSketch16.Ci_Calculation(item1, item2);
+            }
+            stopwatch.Start();
+            BigInteger approx_16 = countSketch16.Approximation();
+            stopwatch.Stop();
+            Console.WriteLine("Approximation m = 16: {0}, Time elapsed:   {1}",approx_16, stopwatch.Elapsed);
+            stopwatch.Reset();
+            
             BigInteger[] estimateArray = new BigInteger[100];
-            var csv = new StringBuilder();
+            /*var csv = new StringBuilder();
             for (int i = 0; i < estimateArray.Length; i++) {
                 CountSketch countSketch = new CountSketch(m);
                 foreach ((ulong item1, int item2) in stream) {
@@ -72,9 +115,21 @@ namespace RAD_Project {
                 
                 
             }
-            File.WriteAllText("money16.csv", csv.ToString());
+            File.WriteAllText("money16.csv", csv.ToString());*/
 
+            //m = 128
             m = BigInteger.Pow(2, 7);
+            CountSketch countSketch128 = new CountSketch(m);
+            foreach ((ulong item1, int item2) in stream) {
+                countSketch128.Ci_Calculation(item1, item2);
+            }
+            stopwatch.Start();
+            BigInteger approx_128 = countSketch128.Approximation();
+            stopwatch.Stop();
+            Console.WriteLine("Approximation m = 128: {0}, Time elapsed:  {1}", approx_128,stopwatch.Elapsed);
+            stopwatch.Reset();
+            
+            /*
             var csv_1 = new StringBuilder();
             for (int i = 0; i < estimateArray.Length; i++) {
                 CountSketch countSketch = new CountSketch(m);
@@ -92,9 +147,20 @@ namespace RAD_Project {
             
 
             File.WriteAllText("money128.csv", csv_1.ToString());
+            */
             
+            //m = 1024
             m = BigInteger.Pow(2, 10);
-            var csv_2 = new StringBuilder();
+            CountSketch countSketch1024 = new CountSketch(m);
+            foreach ((ulong item1, int item2) in stream) {
+                countSketch1024.Ci_Calculation(item1, item2);
+            }
+            stopwatch.Start();
+            BigInteger approx_1024 = countSketch1024.Approximation();
+            stopwatch.Stop();
+            Console.WriteLine("Approximation m = 1024: {0}, Time elapsed: {1}",approx_1024, stopwatch.Elapsed);
+            stopwatch.Reset();
+            /*var csv_2 = new StringBuilder();
             for (int i = 0; i < estimateArray.Length; i++) {
                 CountSketch countSketch = new CountSketch(m);
                 foreach ((ulong item1, int item2) in stream) {
@@ -110,57 +176,8 @@ namespace RAD_Project {
             }
             
 
-            File.WriteAllText("money1024.csv", csv_2.ToString());
+            File.WriteAllText("money1024.csv", csv_2.ToString());*/
 
-
-
-            /*
-            BigInteger m = BigInteger.Pow(2, 28);
-            CountSketch countSketch = new CountSketch(m);
-            
-            
-            stopwatch.Reset();
-            stopwatch.Start();
-            foreach ((ulong item1, int item2) in stream) {
-                countSketch.Ci_Calculation(item1, item2);
-            }
-            stopwatch.Stop();
-            Console.WriteLine("Count-Sketch time elapsed: {0}", stopwatch.Elapsed);
-            
-            Console.WriteLine("Approximation: {0}", countSketch.Approximation());*/
-
-
-
-
-            /*int streamSum = 0;
-            foreach ((ulong item1, int item2) in stream) {
-                keyArray[item1] = item1;
-                streamSum += item2;
-                table.Increment(item1, item2);
-            }
-
-            int getSum = 0;
-            foreach (ulong x in keyArray) {
-                getSum += table.Get(x);
-            }
-            Console.WriteLine(streamSum);
-            Console.WriteLine(getSum);
-
-            int counter = 0;
-            int falseCounter = 0;
-            foreach ((ulong item1, int item2) in stream) {
-                if (table.Get(item1) == item2) {
-                    counter++;
-                } else {
-                    falseCounter++;
-                }
-            }
-            //Console.WriteLine(counter);
-            //Console.WriteLine(falseCounter);
-            
-            table.Set(34, 25);
-            table.Increment(34, 25);
-            //Console.WriteLine(table.Get(34));*/
 
         }
     }
