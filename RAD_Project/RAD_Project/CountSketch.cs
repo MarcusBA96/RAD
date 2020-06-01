@@ -4,7 +4,7 @@ using System.Numerics;
 namespace RAD_Project {
     public class CountSketch {
         private BigInteger m;
-        private CountSketchHash hasher;
+        public CountSketchHash hasher;
         private BigInteger[] C;
 
         public CountSketch(BigInteger _init_m) {

@@ -23,13 +23,11 @@ namespace RAD_Project {
             foreach (LinkedList<KeyVal<ulong,int>> x in hTable.items) {
                 if (x != null) {
                     foreach (KeyVal<ulong, int> x1 in x) {
-                        Console.WriteLine("Key: {0}, Val: {1}",x1.Key, x1.Val);
+                        int value = x1.Val;
+                        sum += value * value;
+                        //Console.WriteLine("Get correct: {0}",x1.Val==hTable.Get(x1.Key));
                     }
                 }
-            }
-            foreach ((ulong item1, _) in keyStream) {
-                int value = hTable.Get(item1);
-                sum += value * value;
             }
 
             return sum;
